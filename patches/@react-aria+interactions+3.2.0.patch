@@ -1,0 +1,76 @@
+diff --git a/node_modules/@react-aria/interactions/dist/module.js b/node_modules/@react-aria/interactions/dist/module.js
+index 853a209..4b84863 100644
+--- a/node_modules/@react-aria/interactions/dist/module.js
++++ b/node_modules/@react-aria/interactions/dist/module.js
+@@ -188,7 +188,7 @@ export function usePress(props) {
+ 
+     let pressProps = {
+       onKeyDown(e) {
+-        if ($ffc54430b1dbeee65879852feaaff07d$var$isValidKeyboardEvent(e.nativeEvent)) {
++        if ($ffc54430b1dbeee65879852feaaff07d$var$isValidKeyboardEvent(e.nativeEvent || e)) {
+           e.preventDefault();
+           e.stopPropagation(); // If the event is repeating, it may have started on a different element
+           // after which focus moved to the current element. Ignore these events and
+@@ -206,7 +206,7 @@ export function usePress(props) {
+       },
+ 
+       onKeyUp(e) {
+-        if ($ffc54430b1dbeee65879852feaaff07d$var$isValidKeyboardEvent(e.nativeEvent) && !e.repeat) {
++        if ($ffc54430b1dbeee65879852feaaff07d$var$isValidKeyboardEvent(e.nativeEvent || e) && !e.repeat) {
+           triggerPressUp($ffc54430b1dbeee65879852feaaff07d$var$createEvent(state.target, e), 'keyboard');
+         }
+       },
+@@ -221,7 +221,7 @@ export function usePress(props) {
+           // trigger as if it were a keyboard click.
+ 
+ 
+-          if (!state.ignoreClickAfterPress && !state.ignoreEmulatedMouseEvents && $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent)) {
++          if (!state.ignoreClickAfterPress && !state.ignoreEmulatedMouseEvents && $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent || e)) {
+             // Ensure the element receives focus (VoiceOver on iOS does not do this)
+             if (!isDisabled) {
+               focusWithoutScrolling(e.currentTarget);
+@@ -405,7 +405,7 @@ export function usePress(props) {
+           focusWithoutScrolling(e.currentTarget);
+         }
+ 
+-        triggerPressStart(e, $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent) ? 'virtual' : 'mouse');
++        triggerPressStart(e, $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent || e) ? 'virtual' : 'mouse');
+         addGlobalListener(document, 'mouseup', onMouseUp, false);
+       };
+ 
+@@ -429,7 +429,7 @@ export function usePress(props) {
+ 
+       pressProps.onMouseUp = e => {
+         if (!state.ignoreEmulatedMouseEvents && e.button === 0) {
+-          triggerPressUp(e, $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent) ? 'virtual' : 'mouse');
++          triggerPressUp(e, $f67ef9f1b8ed09b4b00fd0840cd8b94b$export$isVirtualClick(e.nativeEvent || e) ? 'virtual' : 'mouse');
+         }
+       };
+ 
+@@ -460,7 +460,7 @@ export function usePress(props) {
+ 
+       pressProps.onTouchStart = e => {
+         e.stopPropagation();
+-        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchFromEvent(e.nativeEvent);
++        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchFromEvent(e.nativeEvent || e);
+ 
+         if (!touch) {
+           return;
+@@ -489,7 +489,7 @@ export function usePress(props) {
+           return;
+         }
+ 
+-        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchById(e.nativeEvent, state.activePointerId);
++        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchById(e.nativeEvent || e, state.activePointerId);
+ 
+         if (touch && $ffc54430b1dbeee65879852feaaff07d$var$isOverTarget(touch, e.currentTarget)) {
+           if (!state.isOverTarget) {
+@@ -509,7 +509,7 @@ export function usePress(props) {
+           return;
+         }
+ 
+-        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchById(e.nativeEvent, state.activePointerId);
++        let touch = $ffc54430b1dbeee65879852feaaff07d$var$getTouchById(e.nativeEvent || e, state.activePointerId);
+ 
+         if (touch && $ffc54430b1dbeee65879852feaaff07d$var$isOverTarget(touch, e.currentTarget)) {
+           triggerPressUp(e, 'touch');

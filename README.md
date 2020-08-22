@@ -1,4 +1,6 @@
-# vue-books
+# vue-hooks
+
+Experiment to shim the React Hooks API in Vue 3 using the composition API. Attempting to get [React Aria](https://react-spectrum.adobe.com/react-aria/) working.
 
 ## Project setup
 ```
