@@ -1,0 +1,33 @@
+diff --git a/node_modules/@react-aria/focus/dist/module.js b/node_modules/@react-aria/focus/dist/module.js
+index 0d1c815..25e0fae 100644
+--- a/node_modules/@react-aria/focus/dist/module.js
++++ b/node_modules/@react-aria/focus/dist/module.js
+@@ -84,6 +84,28 @@ export function FocusScope(props) {
+     ref: endRef
+   }));
+ }
++
++export function useFocusScope(ref, props) {
++  let {
++    contain,
++    restoreFocus,
++    autoFocus
++  } = props;
++  let scopeRef = useRef([]);
++
++  useLayoutEffect(() => {
++    scopeRef.current = [ref.current];
++    $c9e8f80f5bb1841844f54e4ad30b$var$scopes.add(scopeRef);
++    return () => {
++      $c9e8f80f5bb1841844f54e4ad30b$var$scopes.delete(scopeRef);
++    };
++  }, []);
++
++  $c9e8f80f5bb1841844f54e4ad30b$var$useFocusContainment(scopeRef, contain);
++  $c9e8f80f5bb1841844f54e4ad30b$var$useRestoreFocus(scopeRef, restoreFocus, contain);
++  $c9e8f80f5bb1841844f54e4ad30b$var$useAutoFocus(scopeRef, autoFocus);
++}
++
+ /**
+  * Returns a FocusManager interface for the parent FocusScope.
+  * A FocusManager can be used to programmatically move focus within

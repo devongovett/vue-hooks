@@ -153,12 +153,11 @@ function _useEffectWithQueue(fn, deps, queue) {
     });
     store.value[i] = [null, deps];
 
-    onBeforeUnmount;
-    // onBeforeUnmount(() => {
-    //   if (store.value[i][0]) {
-    //     store.value[i][0]();
-    //   }
-    // });
+    onBeforeUnmount(() => {
+      if (store.value[i][0]) {
+        store.value[i][0]();
+      }
+    });
   } else {
     let [prevFn, prevDeps] = store.value[i];
     if (!prevDeps || !deps || !shallowEqualArrays(prevDeps, deps)) {

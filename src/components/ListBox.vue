@@ -3,6 +3,7 @@ import {useListBox} from '@react-aria/listbox';
 import {wrap, useRef, useLayoutEffect} from '../react';
 import { mergeProps } from '@react-aria/utils';
 import {useOverlay} from '@react-aria/overlays';
+import {useFocusScope} from '@react-aria/focus';
 import Option from './Option';
 import {ref} from 'vue';
 
@@ -43,6 +44,8 @@ export default {
       },
       reactOverlayRef
     );
+
+    useFocusScope(reactOverlayRef, {restoreFocus: true});
 
     return {
       state,
