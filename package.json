@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@react-aria/button": "^3.2.1",
+    "@react-aria/listbox": "^3.2.0",
+    "@react-aria/select": "^3.2.0",
+    "@react-stately/select": "^3.1.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-0"
   },
@@ -21,7 +24,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
-    "patch-package": "^6.2.2"
+    "patch-package": "^6.2.2",
+    "vue-cli-plugin-tailwind": "~1.4.2"
   },
   "eslintConfig": {
     "root": true,

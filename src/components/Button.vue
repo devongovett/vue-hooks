@@ -1,42 +1,32 @@
 <template>
-  <button v-bind="buttonProps" v-bind:class="{pressed: isPressed}">
+  <button
+    v-bind="buttonProps"
+    class="text-white font-bold py-2 px-4 rounded cursor-default focus:outline-none transition ease-in-out duration-150"
+    v-bind:class="{'bg-blue-700': isPressed, 'bg-blue-500': !isPressed, 'shadow-outline': isFocusVisible}">
     <slot></slot>
-    {{count}}
   </button>
 </template>
 
 <script>
-import {ref} from 'vue';
-import {useButton as _useButton} from '@react-aria/button';
+import {useButton} from '@react-aria/button';
 import {wrap} from '../react';
-
-const useButton = wrap(_useButton);
+import {mergeProps} from '@react-aria/utils';
+import {useFocusRing} from '@react-aria/focus';
 
 export default {
   name: 'Button',
-  setup() {
-    let count = ref(0);
-    let {buttonProps, isPressed} = useButton({
-      onPress() {
-        count.value++;
-      }
-    });
+  props: {
+    onPress: Function
+  },
+  setup: wrap((props) => {
+    let {buttonProps, isPressed} = useButton(props);
+    let {focusProps, isFocusVisible} = useFocusRing();
 
-    return {count, buttonProps, isPressed}
-  }
+    return {
+      buttonProps: mergeProps(buttonProps, focusProps),
+      isPressed,
+      isFocusVisible
+    }
+  })
 }
 </script>
-
-<style scoped>
-button {
-  background: green;
-  border: none;
-  color: white;
-  padding: 8px;
-  font-size: 16px
-}
-
-button.pressed {
-  background: darkgreen;
-}
-</style>
