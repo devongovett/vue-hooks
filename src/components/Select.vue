@@ -1,6 +1,6 @@
 <script>
 import {useSelectState} from '@react-stately/select';
-import {useSelect} from '@react-aria/select';
+import {useSelect, useHiddenSelect} from '@react-aria/select';
 import {useButton} from '@react-aria/button';
 import {Item} from "@react-stately/collections";
 import {useFocusRing} from "@react-aria/focus";
@@ -38,12 +38,18 @@ export default {
     let {buttonProps} = useButton(triggerProps, reactRef);
     buttonProps.onKeyDownCapture = triggerProps.onKeyDownCapture; // TODO: fix this
     let {focusProps, isFocusVisible} = useFocusRing();
+
+    let {containerProps, inputProps, selectProps} = useHiddenSelect(props, state, reactRef);
+
     return {
       state,
       labelProps,
       buttonProps: mergeProps(focusProps, buttonProps),
       valueProps,
       menuProps,
+      hiddenSelectProps: containerProps,
+      inputProps,
+      selectProps,
       isFocusVisible,
       ref: vueRef
     };
@@ -57,6 +63,20 @@ export default {
       v-bind="labelProps"
       class="block text-sm leading-5 font-medium text-gray-700">
       {{ label }}
+    </div>
+    <div v-bind="hiddenSelectProps">
+      <input v-bind="inputProps" />
+      <label>
+        {{label}}
+        <select v-bind="selectProps">
+          <option
+            v-for="key in state.collection.getKeys()"
+            :key="key"
+            :value="key">
+            {{state.collection.getItem(key).textValue}}
+          </option>
+        </select>
+      </label>
     </div>
     <button
       v-bind="buttonProps"

@@ -1,0 +1,22 @@
+diff --git a/node_modules/@react-aria/select/dist/module.js b/node_modules/@react-aria/select/dist/module.js
+index 9c22b58..095ea3e 100644
+--- a/node_modules/@react-aria/select/dist/module.js
++++ b/node_modules/@react-aria/select/dist/module.js
+@@ -89,7 +89,7 @@ export function useSelect(props, state, ref) {
+  * can be used in combination with `useSelect` to support browser form autofill, mobile form
+  * navigation, and native HTML form submission.
+  */
+-function $b4812aafb06725b684f6ed02827aa8f$var$useHiddenSelect(props, state, triggerRef) {
++export function useHiddenSelect(props, state, triggerRef) {
+   let {
+     name,
+     isDisabled
+@@ -157,7 +157,7 @@ export function HiddenSelect(props) {
+     containerProps,
+     inputProps,
+     selectProps
+-  } = $b4812aafb06725b684f6ed02827aa8f$var$useHiddenSelect(props, state, triggerRef); // If used in a <form>, use a hidden input so the value can be submitted to a server.
++  } = useHiddenSelect(props, state, triggerRef); // If used in a <form>, use a hidden input so the value can be submitted to a server.
+   // If the collection isn't too big, use a hidden <select> element for this so that browser
+   // autofill will work. Otherwise, use an <input type="hidden">.
+ 
