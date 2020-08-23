@@ -1,0 +1,39 @@
+diff --git a/node_modules/@react-aria/overlays/dist/module.js b/node_modules/@react-aria/overlays/dist/module.js
+index b4c2860..ff220fd 100644
+--- a/node_modules/@react-aria/overlays/dist/module.js
++++ b/node_modules/@react-aria/overlays/dist/module.js
+@@ -1,4 +1,4 @@
+-import { VisuallyHidden } from "@react-aria/visually-hidden";
++import { VisuallyHidden, useVisuallyHidden } from "@react-aria/visually-hidden";
+ import _babelRuntimeHelpersEsmInteropRequireDefault from "@babel/runtime/helpers/esm/interopRequireDefault";
+ import _reactDom from "react-dom";
+ import { useId } from "@react-aria/utils";
+@@ -791,4 +791,28 @@ export function DismissButton(props) {
+     onClick: onClick
+   }));
+ }
++
++export function useDismissButton(props) {
++  let {
++    onDismiss
++  } = props;
++  let {visuallyHiddenProps} = useVisuallyHidden();
++  let formatMessage = useMessageFormatter($c94f95b3263b356bb2e58a3832a84$var$intlMessages);
++
++  let onClick = () => {
++    if (onDismiss) {
++      onDismiss();
++    }
++  };
++
++  return {
++    dismissButtonProps: {
++      ...visuallyHiddenProps,
++      tabIndex: -1,
++      "aria-label": formatMessage('dismiss'),
++      onClick: onClick
++    }
++  };
++}
++
+ //# sourceMappingURL=module.js.map

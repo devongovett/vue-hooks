@@ -1,0 +1,19 @@
+diff --git a/node_modules/@react-aria/visually-hidden/dist/module.js b/node_modules/@react-aria/visually-hidden/dist/module.js
+index bd30709..840cf22 100644
+--- a/node_modules/@react-aria/visually-hidden/dist/module.js
++++ b/node_modules/@react-aria/visually-hidden/dist/module.js
+@@ -7,12 +7,12 @@ const $f431c2c11cc559fa3c5864caafbcfd19$var$styles = {
+   border: 0,
+   clip: 'rect(0 0 0 0)',
+   clipPath: 'inset(50%)',
+-  height: 1,
++  height: '1px',
+   margin: '0 -1px -1px 0',
+   overflow: 'hidden',
+   padding: 0,
+   position: 'absolute',
+-  width: 1,
++  width: '1px',
+   whiteSpace: 'nowrap'
+ };
+ 
