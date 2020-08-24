@@ -1,5 +1,5 @@
 diff --git a/node_modules/@react-aria/interactions/dist/module.js b/node_modules/@react-aria/interactions/dist/module.js
-index 853a209..4057642 100644
+index 853a209..1ef0efa 100644
 --- a/node_modules/@react-aria/interactions/dist/module.js
 +++ b/node_modules/@react-aria/interactions/dist/module.js
 @@ -188,7 +188,7 @@ export function usePress(props) {
@@ -74,16 +74,52 @@ index 853a209..4057642 100644
  
          if (touch && $ffc54430b1dbeee65879852feaaff07d$var$isOverTarget(touch, e.currentTarget)) {
            triggerPressUp(e, 'touch');
-@@ -789,7 +789,7 @@ function $dc0d75166de722fbf58eb6c3552$export$createEventHandler(handler) {
-       },
+@@ -783,29 +783,26 @@ function $dc0d75166de722fbf58eb6c3552$export$createEventHandler(handler) {
  
-       isDefaultPrevented() {
+   let shouldStopPropagation = true;
+   return e => {
+-    let event = _babelRuntimeHelpersEsmExtends({}, e, {
+-      preventDefault() {
+-        e.preventDefault();
+-      },
+-
+-      isDefaultPrevented() {
 -        return e.isDefaultPrevented();
-+        return e.defaultPrevented != null ? e.defaultPrevented : e.isDefaultPrevented();
-       },
+-      },
+-
+-      stopPropagation() {
+-        console.error('stopPropagation is now the default behavior for events in React Spectrum. You can use continuePropagation() to revert this behavior.');
+-      },
++    let event = new e.constructor(e.type, e);
++    if (!event.isDefaultPrevented) {
++      event.isDefaultPrevented = () => {
++        return event.defaultPrevented;
++      };
++    }
  
-       stopPropagation() {
-@@ -920,8 +920,8 @@ export function useFocusWithin(props) {
+-      continuePropagation() {
+-        shouldStopPropagation = false;
+-      }
++    let stopPropagation = event.stopPropagation;
++    event.stopPropagation = () => {
++      console.error('stopPropagation is now the default behavior for events in React Spectrum. You can use continuePropagation() to revert this behavior.');
++    };
+ 
+-    });
++    event.continuePropagation = () => {
++      shouldStopPropagation = false;
++    };
+ 
+-    handler(event);
++    handler(e);
+ 
+     if (shouldStopPropagation) {
+-      e.stopPropagation();
++      stopPropagation.call(e);
+     }
+   };
+ }
+@@ -920,8 +917,8 @@ export function useFocusWithin(props) {
  
    return {
      focusWithinProps: {
